@@ -1,0 +1,12 @@
+1.上下 div 使用 margin 控制间隔，会自动垂直外边距合并优化，无需手动控制 padding
+	适合无需 border 修饰的部分，单纯拉开间距
+
+2. js 获取子节点使用 childNodes 会获取 textNode + childNode
+	children 则只获取 childNode
+
+3. 透明过度轮播图的关键：如何让轮播 block 重叠
+	margin-right: -100%;
+	float: left;
+
+	这里在 css 中犯了个小 bug 还以为方法不对
+	在 margin-right 后的 margin 覆盖了 margin-right

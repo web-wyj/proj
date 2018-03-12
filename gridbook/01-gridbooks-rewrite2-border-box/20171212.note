@@ -1,0 +1,54 @@
+1.直接使用 css3 box-sizing: border-box;
+	使用 css3 calc() ?
+
+	其实我在考虑要不要为了兼容性, 先使用 box-sizing: border-box;
+
+	直接使用 css3 box-sizing: border-box; 统一布局吧。
+
+2.当通用模型存在特例，需要消除通用模型的影响，再设定新属性
+	通用模型存在
+		min-width: 20em;
+		max-width: 72em;
+		margin: 0 auto;
+		padding: 0 4em;
+	若需 width: 100% 需消除
+		min-width: 20em;
+		max-width: 100%;
+		margin: 0;
+		padding: 0;		//或重计算
+
+3.在进行今天的网页布局时，我想起 HTML5与CSS3基础教程(第8版) 中提到
+	"width 和 height 不是继承的。"	-- P215 用CSS进行布局 - 设置元素的高度和宽度
+
+	height不是继承的容易理解，但为什么说width 也不是继承的呢？
+
+	在 width”继承性“以及盒模型深刻理解 -- http://blog.csdn.net/qq_35809245/article/details/53638214
+	一文中总结到
+		行内元素和行内块元素不能继承宽度，
+		但块级元素在没有设置宽度的情况下默认和父元素同宽。
+
+	因此我觉得原话应该改为，对于块级元素 width 是继承的
+
+	这之中我又看到了一个有趣的现象：
+	css里边width:100%和width:inherit的区别是什么啊？ -- https://www.zhihu.com/question/21800019
+	刚开始我觉得很奇怪，这两者不应该是等价的吗。然后我发现是我的思维固定了。
+
+	在 黑猫 的代码中 d1和d2表现不一致
+	<style>
+	#d0{width:300px;}
+	#d1{width:100%;padding:10px;background:#ddd;}
+	#d2{width:inherit;padding:10px;background:#ccc;}
+	</style>
+
+	<div id="d0">
+		<div>
+			<div id="d1"></div>
+			<div id="d2"></div>
+		</div>
+	</div>
+
+	但将 box-sizing 改成 border-box 两者就一致了。
+	究其原因，在 content-box 下
+		width: 100%; 使得子div的 content-width 为 300px
+	而
+		width: inherit; 使得子div的 padding-width + content-width 即盒内总宽度为 300px 再将盒内往里腾空撑开

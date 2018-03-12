@@ -1,0 +1,72 @@
+@import './usual.less';
+
+@monokai-background: #272822;
+
+*{
+    box-sizing: border-box;
+}
+
+html,
+body,
+main{
+    padding: 0;
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;   // 解决 100vh 底部留白 bug
+}
+
+.editor-container,
+.preview-container{
+    display: inline-block;
+    width: 50%;
+    height: 100%;
+    vertical-align: top;
+}
+
+#md-edit,
+#md-preview{
+    height: 100%;
+    width: 100%;
+}
+
+#md-edit{
+    resize: none;
+    border: none;
+    outline: none;
+    background-color: @monokai-background;
+    color: white;
+    padding: 10px 20px;
+}
+
+#md-preview{
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.input-buttons{
+    //支持 calc 才开启辅助 button 栏
+    display: none;
+    position: relative;
+    background-color: #888888;
+    .reset-ula();
+    ul ul{
+        display: none;
+        position: absolute;
+        background-color: #888888;
+        li{
+            display: block;
+        }
+    }
+    ul > li:hover ul{
+        display: block;
+    }
+    ul > li > a{
+        width: 100px;
+        padding: 5px;
+        text-align: center;
+    }
+    ul ul > li > a:hover{
+        background-color: #dddddd;
+    }
+}

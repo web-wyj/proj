@@ -1,0 +1,44 @@
+.sw-outer
+{
+    display: inline-block;
+    position: relative;
+
+    width: 4em;
+    height: 2.1em;
+
+    border-radius: 1em;
+}
+.sw-inner
+{
+    display: inline-block;
+    position: absolute;
+
+    width: 2em;
+    height: 2em;
+
+    border-radius: 1em;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,.4);
+}
+.sw-open-outer
+{
+    background: rgba(0,184,0,0.8);
+}
+.sw-open-inner
+{
+    top: 1px;
+    right: 1px;
+}
+.sw-close-outer
+{
+    border: 2px solid rgba(0,0,0,0.15);
+    border-left: transparent;
+    background: rgba(255,255,255,0.4);
+}
+.sw-close-inner
+{
+    top: -1px;
+    left: 0px;
+
+    border: 1px solid rgba(0,0,0,0.1);
+}

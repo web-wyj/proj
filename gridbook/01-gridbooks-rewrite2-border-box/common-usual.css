@@ -1,0 +1,34 @@
+*{
+	box-sizing: border-box;		/*CSS3*/
+}
+
+html,body{
+	font-size: 100%;
+	min-height: 100%;
+	min-height: 100vh;			/*CSS3*/
+}
+
+/*清除浮动*/
+.clearfix::after{
+	display: block;
+	content: "";
+	clear: both;
+}
+
+ul.reset-a{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.reset-a ul{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.reset-a li{
+	display: inline-block;
+}
+.reset-a a{
+	display: inline-block;
+	text-decoration: none;
+}

@@ -1,0 +1,27 @@
+1. position: absolute;与文字冲突，造成的表面不合理现象.
+	统一格式后消除
+	原因？
+
+	inline-block 下沉现象
+	行内元素的垂直对齐方式默认为baseline.
+
+2. color 是 inherit 的
+3. hover效果
+	背景加深: 上方覆盖一层纱布 rgba(0,0,0,0.5);
+		内嵌法：内嵌一个纱布wrap
+		定位法：绝对定位一个纱布
+	背景减淡: opacity: 0.5;
+		深色背景 a
+		a.dark-hover:hover{
+			opacity: 0.5;
+		}
+4. 使用 inline-block width百分比 以均分块，在 border-box 下使用 margin负值 和 padding 结合均分
+5. height: 100%; 不包括父亲的 padding?
+	如果是，怎么得到父亲的 content height + padding height ?
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+
+6. gridbooks pc index 纯css结束。

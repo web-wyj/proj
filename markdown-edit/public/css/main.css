@@ -1,0 +1,73 @@
+* {
+  box-sizing: border-box;
+}
+html,
+body,
+main {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+.editor-container,
+.preview-container {
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+  vertical-align: top;
+}
+#md-edit,
+#md-preview {
+  height: 100%;
+  width: 100%;
+}
+#md-edit {
+  resize: none;
+  border: none;
+  outline: none;
+  background-color: #272822;
+  color: white;
+  padding: 10px 20px;
+}
+#md-preview {
+  padding: 20px;
+  overflow-y: auto;
+}
+.input-buttons {
+  display: none;
+  position: relative;
+  background-color: #888888;
+}
+.input-buttons ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.input-buttons li {
+  display: inline-block;
+}
+.input-buttons a {
+  display: inline-block;
+  text-decoration: none;
+  color: black;
+}
+.input-buttons ul ul {
+  display: none;
+  position: absolute;
+  background-color: #888888;
+}
+.input-buttons ul ul li {
+  display: block;
+}
+.input-buttons ul > li:hover ul {
+  display: block;
+}
+.input-buttons ul > li > a {
+  width: 100px;
+  padding: 5px;
+  text-align: center;
+}
+.input-buttons ul ul > li > a:hover {
+  background-color: #dddddd;
+}

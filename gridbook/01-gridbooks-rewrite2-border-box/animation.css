@@ -1,0 +1,10 @@
+@keyframes nav-li-color{
+	from{
+		color: black;
+		background-color: white;
+	}
+	to{
+		color:silver;
+		background-color: #ddd;
+	}
+}

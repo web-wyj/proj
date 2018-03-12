@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>markdown</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="./dist/latest/style.min.css">
+</head>
+<body>
+    <main>
+        <div class="editor-container">
+            <div class="input-buttons">
+                <ul>
+                    <li class="title">
+                        <a href="javascript:void(0);">标题</a>
+                        <ul class="titles">
+                            <li class="title1"><a href="javascript:void(0);">一级标题</a></li>
+                            <li class="title2"><a href="javascript:void(0);">二级标题</a></li>
+                            <li class="title3"><a href="javascript:void(0);">三级标题</a></li>
+                            <li class="title4"><a href="javascript:void(0);">四级标题</a></li>
+                            <li class="title5"><a href="javascript:void(0);">五级标题</a></li>
+                            <li class="title6"><a href="javascript:void(0);">六级标题</a></li>
+                        </ul>
+                    </li>
+                    <li class="list">
+                        <a href="javascript:void(0);">列表</a>
+                        <ul class="lists">
+                            <li class="list1"><a href="javascript:void(0);">无序列表</a></li>
+                            <li class="list2"><a href="javascript:void(0);">有序列表</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <textarea id="md-edit" placeholder="请输入内容" autofocus="true"></textarea>
+        </div><div class="preview-container">
+            <div id="md-preview" class="markdown-body"></div>
+        </div>
+    </main>
+    <script type="text/javascript" src="./dist/latest/concat.min.js"></script>
+</body>
+</html>

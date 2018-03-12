@@ -1,0 +1,40 @@
+1.text-align: center;的子元素未居中
+	父元素 text-align: center;
+	子元素未居中
+	解决: display: inline-block;
+	原因: text-align: center; 针对的是行内元素
+	块级元素永远独占一行，以 margin: 0 auto; 居中
+
+2.a内嵌div, div background 是 img，如何把img展开
+a{
+	display: inline-block;
+    width: 33.3333%;
+}
+a > div{
+	background-image: url("...");
+    width: 100%;
+    padding-bottom: 76.66666667%;		//计算比例，强行撑开....
+    background-position: 50% 50%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+3.使用 margin 负值达到切分+间隔效果
+div{
+	margin:-30px;
+}
+div > div{
+	width: 33.3333%;
+	padding-left: 30px;
+}
+<del>只能在 box-sizing: content-box; 下使用</del>
+可以用，我选择器打错了
+
+4.解决 inline-block 间的空格最好的方法
+	<div>
+		<div clsaa="inline-block">
+		</div><div clsaa="inline-block">
+		</div><div clsaa="inline-block"></div>
+	</div>
+
+5.padding-bottom: 66%;相对的是父元素宽度？

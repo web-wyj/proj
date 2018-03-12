@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>智能家居系统</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="stylesheet" href="css/reset.css">
+
+	<script type="text/javascript" src="js/vue.js"></script>
+
+	<!-- <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.css"> -->
+	<!-- <script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.js"></script> -->
+
+	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="css/animate-p.css">
+	<link rel="stylesheet" href="css/weather.css">
+	<link rel="stylesheet" href="css/switch.css">
+
+	<link rel="stylesheet" href="css/common.css">
+	<link rel="stylesheet" href="css/smart-home.css">
+</head>
+<body>
+	<div id="smart-home-app" class="page-container">
+		<header class="banner" role="banner">
+			<div class="app-info" v-bind:class="weatherCssArray[+weatherCode].w1">
+				<div class="app-info-wrap  animated fadeInDown">
+					<div class="app-title">
+						智能家居系统
+					</div>
+					<div class="app-tools">
+						<a href="javascript:void(0)" target="sm-show" v-on:click="weatherCode=(weatherCode+1)%7">刷新天气</a>
+						<!-- <a href="javascript:void(0)" target="sm-show" v-on:click="weatherCode=~~(Math.random()*7)">刷新天气</a> -->
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="javascript:void(0)" target="sm-show" v-on:click="someOneInDoor=true">有人来啦</a>
+					</div>
+				</div>			
+			</div>
+		</header>
+		<main class="main " role="main">
+			<div class="weather animated fadeIn" v-if="!isMoreControl" v-bind:class="weatherCssArray[+weatherCode].w1">
+				<div class="weather-wrap animated slideInLeft anim-delay0s5">
+					<div class="weather-info">
+						<div class="city">广州市</div>
+						<span class="temperature">15°</span>
+						<span class="weather-type">{{weatherArray[weatherCode].cn}}</span>
+					</div>
+					<div class="weather-animate">
+						<div class="weather-animate-show" v-bind:class="weatherArray[+weatherCode].en"></div>
+					</div>
+				</div>
+			</div>
+			<div class="fast-control animated fadeIn" v-if="!isMoreControl" v-bind:class="weatherCssArray[+weatherCode].w2">
+				<div class="fast-control-wrap">
+					<div class="fast-block-wrap temperature animated zoomIn anim-delay1s">
+						<div class="fast-block" v-on:click="getTempControl()">
+							<div class="temperature-ctrl">
+								<div class="fast-block-title">
+									空调
+								</div><div class="fast-block-switch">
+									<div v-on:click.stop="changeSwitch('temp')" class="sw-outer" v-bind:class="tempSwOuter">
+										<div class="sw-inner" v-bind:class="tempSwInner"></div>
+									</div>
+								</div>
+							</div>
+							<div class="fast-block-status temperature-status">
+								{{+livingRoomTemp>15||+bedroomTemp>15||+studyRoomTemp>15?"ON":"OFF"}}
+							</div>
+						</div>
+					</div><div class="fast-block-wrap light animated zoomIn anim-delay1s25">
+						<div class="fast-block" v-on:click="getLightControl()">
+							<div class="temperature-ctrl">
+								<div class="fast-block-title">
+									灯光
+								</div><div class="fast-block-switch">
+									<div v-on:click.stop="changeSwitch('light')" class="sw-outer" v-bind:class="lightSwOuter">
+										<div class="sw-inner" v-bind:class="lightSwInner"></div>
+									</div>
+								</div>
+							</div>
+							<div class="fast-block-status light-status">
+								{{+livingRoomLight||+bedroomLight||+studyRoomLight?"ON":"OFF"}}
+							</div>
+						</div>
+					</div><div class="fast-block-wrap music animated zoomIn anim-delay1s5">
+						<div class="fast-block" v-on:click="getMusicControl()">
+							<div class="temperature-ctrl">
+								<div class="fast-block-title">
+									音乐
+								</div>
+							</div>
+							<div class="fast-block-status music-status">
+								正在播放：{{musicName}}
+							</div>
+						</div>
+					</div><div class="fast-block-wrap door animated zoomIn anim-delay1s75">
+						<div class="fast-block">
+						<!-- <div class="fast-block" v-on:click="getDoorControl()"> -->
+							<div class="temperature-ctrl">
+								<div class="fast-block-title">
+									门客
+								</div><div class="fast-block-switch">
+									<div v-on:click.stop="changeSwitch('door')" class="sw-outer" v-bind:class="doorSwOuter">
+										<div class="sw-inner" v-bind:class="doorSwInner"></div>
+									</div>
+								</div>
+							</div>
+							<div class="fast-block-status door-status animated shake infinite" v-if="+someOneInDoor">
+								有人来访
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 详细功能区 -->
+			<div class="more-control" v-if="isMoreControl">
+				<div class="more-control-wrap">
+					<nav class="more-control-nav animated fadeInUp">
+						<div class="more-control-nav-wrap">
+							<ul>
+								<li><a href="javascript:void(0)" v-on:click="cancelMoreControl()">返回</a></li>
+								<li><a href="javascript:void(0)" v-on:click="getTempControl()">空调</a></li>
+								<li><a href="javascript:void(0)" v-on:click="getLightControl()">灯光</a></li>
+								<li><a href="javascript:void(0)" v-on:click="getMusicControl()">音乐</a></li>
+								<!-- <li><a href="javascript:void(0)" v-on:click="getDoorControl()">门客</a></li> -->
+							</ul>								
+						</div>
+					</nav><div class="more-control-content">
+						<div class="temp animated fadeIn" v-if="isTempControl">
+							<div class="one-room">
+								<div class="room-name">大厅空调{{+livingRoomTemp>15?livingRoomTemp+'°':'关闭'}}</div>
+								<div class="room-set">
+									<input class="range" v-bind:style="setTempColor(livingRoomTemp,'livingRoom')" v-model="livingRoomTemp" type="range" name="temp-livingRoom" min="15" max="30">
+								</div>
+							</div>
+							<div class="one-room">
+								<div class="room-name">主卧空调{{+bedroomTemp>15?bedroomTemp+'°':'关闭'}}</div>
+								<div class="room-set">
+									<input class="range" v-bind:style="setTempColor(bedroomTemp,'bedroom')" v-model="bedroomTemp" type="range" name="temp-bedroom" min="15" max="30">
+								</div>
+							</div>
+							<div class="one-room">
+								<div class="room-name">书房空调{{+studyRoomTemp>15?studyRoomTemp+'°':'关闭'}}</div>
+								<div class="room-set">
+									<input class="range" v-bind:style="setTempColor(studyRoomTemp,'studyRoom')" v-model="studyRoomTemp" type="range" name="temp-studyRoom" min="15" max="30">
+								</div>
+							</div>
+						</div>
+						<div class="light animated fadeIn" v-if="isLightControl">
+							<div class="one-room">
+								<div class="room-name">大厅灯光</div>
+								<div class="room-set">
+									<input class="range" v-bind:style="setLightColor(livingRoomLight,'livingRoom')" v-model="livingRoomLight" v-model="isLightSwOpen" type="range" name="light-livingRoom" min="0" max="1">
+								</div>
+							</div>
+							<div class="one-room">
+								<div class="room-name">主卧灯光</div>
+								<div class="room-set">
+									<input class="range" v-bind:style="setLightColor(bedroomLight,'bedroom')" v-model="bedroomLight" type="range" name="light-bedroom" min="0" max="1">
+								</div>
+							</div>
+							<div class="one-room">
+								<div class="room-name">书房灯光</div>
+								<div class="room-set">
+									<input class="range" v-bind:style="setLightColor(studyRoomLight,'studyRoom')" v-model="studyRoomLight" type="range" name="light-studyRoom" min="0" max="1">
+								</div>
+							</div>
+						</div>
+						<div class="music animated fadeIn" v-if="isMusicControl">
+							<div class="one-room">
+								<div class="room-name">音乐</div>
+								<div class="room-set">
+									<input class="text" v-model="musicName" type="text" name="music-text" v-model="musicName">
+									<button v-on:click="musicPlay(musicName)">播放</button>
+									<button v-on:click="musicPause()">暂停</button>
+								</div>
+							</div>
+						</div>
+						<!-- <div class="door animated fadeIn" v-if="isDoorControl">
+							<div class="one-room">
+								<div class="room-name">门客</div>
+								<div class="room-set">
+									<input class="range" v-bind:style="setRangeColor()" v-model="rangeValue" type="range" name="light" min="0" max="100">
+								</div>
+							</div>
+						</div> -->						
+					</div>
+				</div>
+			</div>
+		</main>
+		<aside class="complementary" role="complementary" v-if="false"></aside>
+		<footer class="contentinfo" role="contentinfo" v-if="false">
+			Design by GDUT 14IOT-730 WuYouJian, WangYueJia, WangRuiChang.
+		</footer>
+	</div>
+	<!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vue"></script> -->
+	<script type="text/javascript" src="js/smart-home.js"></script>
+</body>
+</html>

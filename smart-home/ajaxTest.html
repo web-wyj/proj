@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	.block{
+		position: absolute;
+		background-color: red;
+		width: 300px;
+		height: 300px;
+		top: 50px;
+		left: 50px;
+	}
+
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+function ajax(method,url,succeed,fail,postContext){
+	var xhr = new XMLHttpRequest();
+	if("GET" == method){
+		xhr.onreadystatechange = function(){
+			if(4 == xhr.readyState && 200 == xhr.status){
+				// (succeed && succeed()) || console.log();
+				// var obj = JSON.parse(xhr.responseText);
+				// console.log(xhr.responseText);
+
+			}else if(404 == xhr.status){
+				fail() || console.log("404: Page not found");
+			}
+		};
+		xhr.open(method,url,true);
+		xhr.send();			
+	}else if("POST" == method){
+		xhr.onreadystatechange = function(){
+			if(4 == xhr.readyState && 200 == xhr.status){
+				(succeed && succeed()) || console.log(xhr.responseText);
+			}else if(404 == xhr.status){
+				fail() || console.log("404: Page not found");
+			}
+		};
+		xhr.open(method,url,true);
+		xhr.send(postContext);
+	}
+}
+ajax("GET","http://192.168.155.1:8080/smarthouse/api?aaa=123",null,null,null);
+	</script>
+</body>
+</html>

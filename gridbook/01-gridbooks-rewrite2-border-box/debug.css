@@ -1,0 +1,27 @@
+.d-border{
+	border: 1px solid black;
+}
+
+.d-left{
+	float: left;
+}
+
+.d-right{
+	float: right;
+}
+
+.d-hide{
+	display: none;
+}
+
+.d-block{
+	display: block;
+}
+
+.d-inline-block{
+	display: inline-block;
+}
+
+.d-inline{
+	display: inline;
+}
